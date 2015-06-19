@@ -1,4 +1,4 @@
-from numpy.fft import fft, fftshift, ifftshift
+from numpy.fft import fft2, ifft2, rfft2, irfft2, fftshift, ifftshift
 from numpy import array, arange
 from math import sqrt, pi, exp
 from matplotlib import pyplot
@@ -10,7 +10,7 @@ x_axis = arange(-100, 100, .1)
 
 y_axis1 = array([gaussian(i, 1) for i in x_axis])
 
-y_axis2 = ifftshift(fft(fftshift(y_axis1)))
+y_axis2 = ifftshift(fft2(fftshift(y_axis1)))
 
 pyplot.plot(x_axis, y_axis1)
 pyplot.plot(x_axis, y_axis2)
