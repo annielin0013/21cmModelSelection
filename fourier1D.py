@@ -1,17 +1,16 @@
-from numpy.fft import fft, fftshift, ifftshift
-from numpy import array, arange
-from math import sqrt, pi, exp
+import numpy as np
 from matplotlib import pyplot
 
 def gaussian(x, sigma):
-    return (1/(sqrt(2*pi*pow(sigma, 2))))*exp(-pow(x, 2)/(2*pow(sigma, 2)))
+    return (1/(np.sqrt(2 * np.pi * sigma * sigma))) * np.exp(-(x * x)/(2 * sigma * sigma))
 
-x_axis = arange(-100, 100, .1)
+x_axis = np.arange(-50, 50, .1)
 
-y_axis1 = array([gaussian(i, 1) for i in x_axis])
+y_axis1 = np.array([gaussian(i, 1) for i in x_axis])
 
-y_axis2 = ifftshift(fft(fftshift(y_axis1)))
+y_axis2 = np.fft.ifftshift(np.fft.fft(np.fft.fftshift(y_axis1)))
 
 pyplot.plot(x_axis, y_axis1)
 pyplot.plot(x_axis, y_axis2)
+pyplot.title('Fourier Transform in 1D')
 pyplot.show()
