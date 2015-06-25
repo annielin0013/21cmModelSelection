@@ -5,6 +5,7 @@ npix = 30
 
 mean = np.zeros(npix * npix)
 cov = np.identity(npix * npix)
+
 # for i in np.arange(100):
 # 	for j in np.arange(3):
 # 		if i+j <= 99:
