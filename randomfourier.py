@@ -1,8 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-npix = 6
-
+npix = 4
 if npix % 2 == 0:
 	npix += 1
 
@@ -13,7 +12,6 @@ a = result1[0]
 b = result1[1]
 
 result1 = np.array([complex(a[i], b[i]) for i in range(npix * npix)])
-
 result2 = np.array(result1)
 for j in range((npix * npix)/2):
 	result2[j] =result2[-1 - j].conjugate()
@@ -41,7 +39,7 @@ print result2
 #print result2
 #print "hey"
 
-result3 = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(result2)))
+result3 = np.fft.fftshift(np.fft.ifft2(np.fft.ifftshift(result2)))
 print result3
 
 plt.figure(1)
