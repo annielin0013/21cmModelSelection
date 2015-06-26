@@ -1,7 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-npix = 4
+npix = 6
+
+if npix % 2 == 0:
+	npix += 1
 
 mean = np.zeros(npix * npix)
 cov = np.identity(npix * npix)
@@ -11,22 +14,15 @@ b = result1[1]
 
 result1 = np.array([complex(a[i], b[i]) for i in range(npix * npix)])
 
-#result2 = result1.reshape((npix, npix))
-#if npix % 2 == 0:
-#	center = npix / 2
-#else:
-#	center = (npix / 2) + 1
-#for x in range (center, npix)
-
 result2 = np.array(result1)
 for j in range((npix * npix)/2):
 	result2[j] =result2[-1 - j].conjugate()
 result2 = result2.reshape ((npix, npix))
 result2[(npix / 2, npix / 2)] = result2[(npix / 2, npix / 2)].real
-for x in range(npix):
-	result2[(x, 0)] = result2[(x, 0)].real
-for y in range(npix):
-	result2[(0, y)] = result2[(0, y)].real
+#for x in range(npix):
+#	result2[(x, 0)] = result2[(x, 0)].real
+#for y in range(npix):
+#	result2[(0, y)] = result2[(0, y)].real
 print result2
 
 #print result2
