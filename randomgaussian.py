@@ -24,11 +24,10 @@ result2 = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(result1)))
 
 k_radius = 7
 result3 = np.zeros_like(result2)
-
 origin = npix/2
 for i in np.arange(npix):
 	for j in np.arange(npix):
-		displacement = np.sqrt(((i-origin) ** 2) + ((j-origin) ** 2))
+		displacement = np.sqrt(((i - origin) ** 2) + ((j - origin) ** 2))
 		if displacement <= k_radius:
 			result3[i, j] = result2[i, j]
 
