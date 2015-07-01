@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-npix = 4
+npix = 7
 
 mean = np.zeros(npix * npix)
 cov = np.identity(npix * npix)
@@ -10,49 +10,23 @@ a = result1[0]
 b = result1[1]
 result1 = np.array([complex(a[i], b[i]) for i in range(npix * npix)])
 
-#result2 = np.array(result1)
-#for j in range((npix * npix)/2):
-#	result2[j] =result2[-1 - j].conjugate()
-#result2 = result2.reshape ((npix, npix))
-
 result2 = result1.reshape((npix, npix))
 origin = (npix / 2, npix / 2)
 result2[origin] = result2[origin].real
 
 if npix % 2 == 0:
-	for i in range(1, npix):
-		for j in range(1, npix / 2):
-			result2[i, j] = result2[i, npix - j].conjugate()
-	result2copy = np.copy(result2)
-	for i in range(1, npix / 2):
-		for j in range(1, npix / 2):
-			result2copy[i, j] = result2copy[npix - i, j]
-	for i in range((npix / 2) + 1, npix):
-		for j in range(1, npix / 2):
-			result2[i, j] = result2[npix - i, j]
-	for i in range(1, npix / 2):
-		for j in range(1, npix / 2):
-			result2[i, j] = result2copy[i, j]
-	for i in range(1, npix / 2):
-		for j in range (npix / 2, (npix / 2) + 1):
-			result2[i, j] = result2[npix - i, j].conjugate()
-	for i in range(npix):
-		result2[(i, 0)] = result2[(i, 0)].real
-	for j in range(npix):
-		result2[(0, j)] = result2[(0, j)].real
-	result2[0, 1] = result2[0, 3]
-	result2[1, 0] = result2[3, 0]
-	print result2
+    result2[npix - 1:0:-1, -1:npix / 2:-1] = result2[1:, 1:npix / 2].conj()
+    result2[npix / 2 - 1:0:-1, npix / 2]=result2[npix / 2 + 1:, npix / 2].conj()
+    result2[0, 0:npix] = result2[0, 0:npix].real
+    result2[0:npix, 0] = result2[0:npix, 0].real
+    result2[0, npix / 2 - 1:0:-1] = result2[0, npix / 2 + 1:]
+    result2[npix / 2 - 1:0:-1, 0] = result2[npix / 2 + 1:, 0]
+    print result2
 
-#	for i in range(npix):
-#		print result2[i]	
-
-#	print 'start working please'
-#	for i in range(npix):
-#		print np.fft.ifftshift(result2)[i]
-#	assert False
-
-#if npix % 2 == 1:
+if npix % 2 == 1:
+    result2[::-1, npix / 2 - 1::-1] = result2[:, npix / 2 + 1:].conj()
+    result2[npix / 2 - 1::-1, npix / 2] = result2[npix / 2 + 1:, npix / 2].conj()
+    print result2
 
 #k_radius = 3
 #for i in np.arange(npix):

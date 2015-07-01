@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-npix = 4
+npix = 30
 
 mean = np.zeros(npix * npix)
 cov = np.identity(npix * npix)
@@ -21,8 +21,6 @@ result1 = result1.reshape((npix, npix))
 # for i in np.arange(npix):
 # 	result1[i,:] *= i
 result2 = np.fft.ifftshift(np.fft.fft2(np.fft.fftshift(result1)))
-print np.fft.fft2(np.fft.fftshift(result1))
-assert False
 
 k_radius = 7
 result3 = np.zeros_like(result2)
@@ -34,6 +32,7 @@ for i in np.arange(npix):
 			result3[i, j] = result2[i, j]
 
 result4 = np.fft.fftshift(np.fft.ifft2(np.fft.ifftshift(result3)))
+print result4
 
 plt.figure(1)
 plt.imshow(result1, interpolation='nearest')
