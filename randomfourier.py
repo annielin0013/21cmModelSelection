@@ -18,24 +18,31 @@ result1 = np.array([complex(a[i], b[i]) for i in range(npix * npix)])
 result2 = result1.reshape((npix, npix))
 origin = (npix / 2, npix / 2)
 result2[origin] = result2[origin].real
+
 if npix % 2 == 0:
 	for i in range(1, npix):
 		for j in range(1, npix / 2):
 			result2[i, j] = result2[i, npix - j].conjugate()
 	result2copy = np.copy(result2)
-	
+	for i in range(1, npix / 2):
+		for j in range(1, npix / 2):
+			result2copy[i, j] = result2copy[npix - i, j]
+	for i in range((npix / 2) + 1, npix):
+		for j in range(1, npix / 2):
+			result2[i, j] = result2[npix - i, j]
+	for i in range(1, npix / 2):
+		for j in range(1, npix / 2):
+			result2[i, j] = result2copy[i, j]
+	for i in range(1, npix / 2):
+		for j in range (npix / 2, (npix / 2) + 1):
+			result2[i, j] = result2[npix - i, j].conjugate()
+	for i in range(npix):
+		result2[(i, 0)] = result2[(i, 0)].real
+	for j in range(npix):
+		result2[(0, j)] = result2[(0, j)].real
+	print result2
 
-#	for i in range(1, npix / 2):
-#		for j in range(1, npix / 2):
-#			result2[i, j] = result2[i, npix - j]
-#	if i == npix / 2:
-#		for j in range(1, npix / 2):
-#			result2[i, j] = result2[i, npix - j].conjugate()
-#	for x in range(npix):
-#		result2[(x, 0)] = result2[(x, 0)].real
-#	for y in range(npix):
-#		result2[(0, y)] = result2[(0, y)].real
-#print result2
+if npix % 2 == 1:
 
 #k_radius = 3
 #for i in np.arange(npix):
@@ -44,7 +51,8 @@ if npix % 2 == 0:
 #		k_ring
 
 result3 = np.fft.fftshift(np.fft.ifft2(np.fft.ifftshift(result2)))
-#print result3
+print 'hey'
+print result3
 
 plt.figure(1)
 plt.imshow(result2.imag, interpolation='nearest')
