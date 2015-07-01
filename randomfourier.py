@@ -40,9 +40,19 @@ if npix % 2 == 0:
 		result2[(i, 0)] = result2[(i, 0)].real
 	for j in range(npix):
 		result2[(0, j)] = result2[(0, j)].real
+	result2[0, 1] = result2[0, 3]
+	result2[1, 0] = result2[3, 0]
 	print result2
 
-if npix % 2 == 1:
+#	for i in range(npix):
+#		print result2[i]	
+
+#	print 'start working please'
+#	for i in range(npix):
+#		print np.fft.ifftshift(result2)[i]
+#	assert False
+
+#if npix % 2 == 1:
 
 #k_radius = 3
 #for i in np.arange(npix):
