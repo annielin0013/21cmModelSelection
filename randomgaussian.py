@@ -32,7 +32,6 @@ for i in np.arange(npix):
 			result3[i, j] = result2[i, j]
 
 result4 = np.fft.fftshift(np.fft.ifft2(np.fft.ifftshift(result3)))
-print result4
 
 plt.figure(1)
 plt.imshow(result1, interpolation='nearest')

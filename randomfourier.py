@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-npix = 7
+npix = 10
 
 mean = np.zeros(npix * npix)
 cov = np.identity(npix * npix)
