@@ -41,21 +41,39 @@ for x in k:
     mean = np.mean(amp2)
     means.append(mean)
 
+for i in k:
+    means[i] = i * means[i]
+
+# g = k[::-1]
+# for i in k:
+#     means[i] = g[i] * means[i]
+
+for x in k:
+    for i in np.arange(npix):
+        for j in np.arange(npix):
+            displacement = np.sqrt(((i - origin) ** 2) + ((j - origin) ** 2))
+            if (k[x] - 1) < displacement < (k[x] + 1):
+                result2[i, j] = np.sqrt(x) * result2[i, j]
+
+# for x in k:
+#     for i in np.arange(npix):
+#         for j in np.arange(npix):
+#             displacement = np.sqrt(((i - origin) ** 2) + ((j - origin) ** 2))
+#             if (k[x] - 1) < displacement < (k[x] + 1):
+#                 result2[i, j] = np.sqrt(g[x]) * result2[i, j]
+
 result3 = np.fft.fftshift(np.fft.ifft2(np.fft.ifftshift(result2)))
-print result3
+#print result3
 
-# plt.figure(1)
-# plt.imshow(result2.imag, interpolation='nearest')
-# plt.title('Random Fourier Field')
+plt.figure(1)
+plt.imshow(result2.imag, interpolation='nearest')
+plt.title('Random Fourier Field')
 
-# plt.figure(2)
-# plt.imshow(result3.real, interpolation='nearest')
-# plt.title('Configuration Space')
+plt.figure(2)
+plt.imshow(result3.real, interpolation='nearest')
+plt.title('Configuration Space')
 
-# plt.figure(3)
-# plt.imshow(k_ring.imag, interpolation='nearest')
-# plt.title('K Ring')
-
+plt.figure(3)
 plt.plot(k, means)
 plt.title('Power Spectrum')
 plt.show()
